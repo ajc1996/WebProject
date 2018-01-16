@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.dao.SmSyllabusMapper" >
+  <resultMap id="BaseResultMap" type="web.model.SmSyllabus" >
+    <constructor >
+      <idArg column="SyllabusOID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SyName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SyDuration" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SyStartweek" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="SyEndweek" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="SyTeacher" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SyStartclass" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="SyEndclass" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="SyOwnerID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SyOwnerName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SyOwnerYear" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SyOwnerTerm" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SyAddress" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SyState" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SyllabusOID, SyName, SyDuration, SyStartweek, SyEndweek, SyTeacher, SyStartclass, 
+    SyEndclass, SyOwnerID, SyOwnerName, SyOwnerYear, SyOwnerTerm, SyAddress, SyState
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="web.model.SmSyllabusExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from smsyllabus
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null" >
+      <if test="offset != null" >
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null" >
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from smsyllabus
+    where SyllabusOID = #{syllabusoid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from smsyllabus
+    where SyllabusOID = #{syllabusoid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="web.model.SmSyllabusExample" >
+    delete from smsyllabus
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="web.model.SmSyllabus" >
+    insert into smsyllabus (SyllabusOID, SyName, SyDuration, 
+      SyStartweek, SyEndweek, SyTeacher, 
+      SyStartclass, SyEndclass, SyOwnerID, 
+      SyOwnerName, SyOwnerYear, SyOwnerTerm, 
+      SyAddress, SyState)
+    values (#{syllabusoid,jdbcType=VARCHAR}, #{syname,jdbcType=VARCHAR}, #{syduration,jdbcType=VARCHAR}, 
+      #{systartweek,jdbcType=INTEGER}, #{syendweek,jdbcType=INTEGER}, #{syteacher,jdbcType=VARCHAR}, 
+      #{systartclass,jdbcType=INTEGER}, #{syendclass,jdbcType=INTEGER}, #{syownerid,jdbcType=VARCHAR}, 
+      #{syownername,jdbcType=VARCHAR}, #{syowneryear,jdbcType=VARCHAR}, #{syownerterm,jdbcType=VARCHAR}, 
+      #{syaddress,jdbcType=VARCHAR}, #{systate,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="web.model.SmSyllabus" >
+    insert into smsyllabus
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="syllabusoid != null" >
+        SyllabusOID,
+      </if>
+      <if test="syname != null" >
+        SyName,
+      </if>
+      <if test="syduration != null" >
+        SyDuration,
+      </if>
+      <if test="systartweek != null" >
+        SyStartweek,
+      </if>
+      <if test="syendweek != null" >
+        SyEndweek,
+      </if>
+      <if test="syteacher != null" >
+        SyTeacher,
+      </if>
+      <if test="systartclass != null" >
+        SyStartclass,
+      </if>
+      <if test="syendclass != null" >
+        SyEndclass,
+      </if>
+      <if test="syownerid != null" >
+        SyOwnerID,
+      </if>
+      <if test="syownername != null" >
+        SyOwnerName,
+      </if>
+      <if test="syowneryear != null" >
+        SyOwnerYear,
+      </if>
+      <if test="syownerterm != null" >
+        SyOwnerTerm,
+      </if>
+      <if test="syaddress != null" >
+        SyAddress,
+      </if>
+      <if test="systate != null" >
+        SyState,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="syllabusoid != null" >
+        #{syllabusoid,jdbcType=VARCHAR},
+      </if>
+      <if test="syname != null" >
+        #{syname,jdbcType=VARCHAR},
+      </if>
+      <if test="syduration != null" >
+        #{syduration,jdbcType=VARCHAR},
+      </if>
+      <if test="systartweek != null" >
+        #{systartweek,jdbcType=INTEGER},
+      </if>
+      <if test="syendweek != null" >
+        #{syendweek,jdbcType=INTEGER},
+      </if>
+      <if test="syteacher != null" >
+        #{syteacher,jdbcType=VARCHAR},
+      </if>
+      <if test="systartclass != null" >
+        #{systartclass,jdbcType=INTEGER},
+      </if>
+      <if test="syendclass != null" >
+        #{syendclass,jdbcType=INTEGER},
+      </if>
+      <if test="syownerid != null" >
+        #{syownerid,jdbcType=VARCHAR},
+      </if>
+      <if test="syownername != null" >
+        #{syownername,jdbcType=VARCHAR},
+      </if>
+      <if test="syowneryear != null" >
+        #{syowneryear,jdbcType=VARCHAR},
+      </if>
+      <if test="syownerterm != null" >
+        #{syownerterm,jdbcType=VARCHAR},
+      </if>
+      <if test="syaddress != null" >
+        #{syaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="systate != null" >
+        #{systate,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="web.model.SmSyllabusExample" resultType="java.lang.Integer" >
+    select count(*) from smsyllabus
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update smsyllabus
+    <set >
+      <if test="record.syllabusoid != null" >
+        SyllabusOID = #{record.syllabusoid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.syname != null" >
+        SyName = #{record.syname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.syduration != null" >
+        SyDuration = #{record.syduration,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systartweek != null" >
+        SyStartweek = #{record.systartweek,jdbcType=INTEGER},
+      </if>
+      <if test="record.syendweek != null" >
+        SyEndweek = #{record.syendweek,jdbcType=INTEGER},
+      </if>
+      <if test="record.syteacher != null" >
+        SyTeacher = #{record.syteacher,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systartclass != null" >
+        SyStartclass = #{record.systartclass,jdbcType=INTEGER},
+      </if>
+      <if test="record.syendclass != null" >
+        SyEndclass = #{record.syendclass,jdbcType=INTEGER},
+      </if>
+      <if test="record.syownerid != null" >
+        SyOwnerID = #{record.syownerid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.syownername != null" >
+        SyOwnerName = #{record.syownername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.syowneryear != null" >
+        SyOwnerYear = #{record.syowneryear,jdbcType=VARCHAR},
+      </if>
+      <if test="record.syownerterm != null" >
+        SyOwnerTerm = #{record.syownerterm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.syaddress != null" >
+        SyAddress = #{record.syaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systate != null" >
+        SyState = #{record.systate,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update smsyllabus
+    set SyllabusOID = #{record.syllabusoid,jdbcType=VARCHAR},
+      SyName = #{record.syname,jdbcType=VARCHAR},
+      SyDuration = #{record.syduration,jdbcType=VARCHAR},
+      SyStartweek = #{record.systartweek,jdbcType=INTEGER},
+      SyEndweek = #{record.syendweek,jdbcType=INTEGER},
+      SyTeacher = #{record.syteacher,jdbcType=VARCHAR},
+      SyStartclass = #{record.systartclass,jdbcType=INTEGER},
+      SyEndclass = #{record.syendclass,jdbcType=INTEGER},
+      SyOwnerID = #{record.syownerid,jdbcType=VARCHAR},
+      SyOwnerName = #{record.syownername,jdbcType=VARCHAR},
+      SyOwnerYear = #{record.syowneryear,jdbcType=VARCHAR},
+      SyOwnerTerm = #{record.syownerterm,jdbcType=VARCHAR},
+      SyAddress = #{record.syaddress,jdbcType=VARCHAR},
+      SyState = #{record.systate,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="web.model.SmSyllabus" >
+    update smsyllabus
+    <set >
+      <if test="syname != null" >
+        SyName = #{syname,jdbcType=VARCHAR},
+      </if>
+      <if test="syduration != null" >
+        SyDuration = #{syduration,jdbcType=VARCHAR},
+      </if>
+      <if test="systartweek != null" >
+        SyStartweek = #{systartweek,jdbcType=INTEGER},
+      </if>
+      <if test="syendweek != null" >
+        SyEndweek = #{syendweek,jdbcType=INTEGER},
+      </if>
+      <if test="syteacher != null" >
+        SyTeacher = #{syteacher,jdbcType=VARCHAR},
+      </if>
+      <if test="systartclass != null" >
+        SyStartclass = #{systartclass,jdbcType=INTEGER},
+      </if>
+      <if test="syendclass != null" >
+        SyEndclass = #{syendclass,jdbcType=INTEGER},
+      </if>
+      <if test="syownerid != null" >
+        SyOwnerID = #{syownerid,jdbcType=VARCHAR},
+      </if>
+      <if test="syownername != null" >
+        SyOwnerName = #{syownername,jdbcType=VARCHAR},
+      </if>
+      <if test="syowneryear != null" >
+        SyOwnerYear = #{syowneryear,jdbcType=VARCHAR},
+      </if>
+      <if test="syownerterm != null" >
+        SyOwnerTerm = #{syownerterm,jdbcType=VARCHAR},
+      </if>
+      <if test="syaddress != null" >
+        SyAddress = #{syaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="systate != null" >
+        SyState = #{systate,jdbcType=INTEGER},
+      </if>
+    </set>
+    where SyllabusOID = #{syllabusoid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="web.model.SmSyllabus" >
+    update smsyllabus
+    set SyName = #{syname,jdbcType=VARCHAR},
+      SyDuration = #{syduration,jdbcType=VARCHAR},
+      SyStartweek = #{systartweek,jdbcType=INTEGER},
+      SyEndweek = #{syendweek,jdbcType=INTEGER},
+      SyTeacher = #{syteacher,jdbcType=VARCHAR},
+      SyStartclass = #{systartclass,jdbcType=INTEGER},
+      SyEndclass = #{syendclass,jdbcType=INTEGER},
+      SyOwnerID = #{syownerid,jdbcType=VARCHAR},
+      SyOwnerName = #{syownername,jdbcType=VARCHAR},
+      SyOwnerYear = #{syowneryear,jdbcType=VARCHAR},
+      SyOwnerTerm = #{syownerterm,jdbcType=VARCHAR},
+      SyAddress = #{syaddress,jdbcType=VARCHAR},
+      SyState = #{systate,jdbcType=INTEGER}
+    where SyllabusOID = #{syllabusoid,jdbcType=VARCHAR}
+  </update>
+</mapper>

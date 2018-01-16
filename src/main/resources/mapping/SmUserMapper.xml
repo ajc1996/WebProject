@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.dao.SmUserMapper" >
+  <resultMap id="BaseResultMap" type="web.model.SmUser" >
+    <constructor >
+      <idArg column="UserOID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UsNum" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UsPassword" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UsLimit" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="UsCollege" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UsSchool" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UsState" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    UserOID, UsNum, UsPassword, UsLimit, UsCollege, UsSchool, UsState
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="web.model.SmUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from smuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null" >
+      <if test="offset != null" >
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null" >
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from smuser
+    where UserOID = #{useroid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from smuser
+    where UserOID = #{useroid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="web.model.SmUserExample" >
+    delete from smuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="web.model.SmUser" >
+    insert into smuser (UserOID, UsNum, UsPassword, 
+      UsLimit, UsCollege, UsSchool, 
+      UsState)
+    values (#{useroid,jdbcType=VARCHAR}, #{usnum,jdbcType=VARCHAR}, #{uspassword,jdbcType=VARCHAR}, 
+      #{uslimit,jdbcType=INTEGER}, #{uscollege,jdbcType=VARCHAR}, #{usschool,jdbcType=VARCHAR}, 
+      #{usstate,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="web.model.SmUser" >
+    insert into smuser
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="useroid != null" >
+        UserOID,
+      </if>
+      <if test="usnum != null" >
+        UsNum,
+      </if>
+      <if test="uspassword != null" >
+        UsPassword,
+      </if>
+      <if test="uslimit != null" >
+        UsLimit,
+      </if>
+      <if test="uscollege != null" >
+        UsCollege,
+      </if>
+      <if test="usschool != null" >
+        UsSchool,
+      </if>
+      <if test="usstate != null" >
+        UsState,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="useroid != null" >
+        #{useroid,jdbcType=VARCHAR},
+      </if>
+      <if test="usnum != null" >
+        #{usnum,jdbcType=VARCHAR},
+      </if>
+      <if test="uspassword != null" >
+        #{uspassword,jdbcType=VARCHAR},
+      </if>
+      <if test="uslimit != null" >
+        #{uslimit,jdbcType=INTEGER},
+      </if>
+      <if test="uscollege != null" >
+        #{uscollege,jdbcType=VARCHAR},
+      </if>
+      <if test="usschool != null" >
+        #{usschool,jdbcType=VARCHAR},
+      </if>
+      <if test="usstate != null" >
+        #{usstate,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="web.model.SmUserExample" resultType="java.lang.Integer" >
+    select count(*) from smuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update smuser
+    <set >
+      <if test="record.useroid != null" >
+        UserOID = #{record.useroid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usnum != null" >
+        UsNum = #{record.usnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uspassword != null" >
+        UsPassword = #{record.uspassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uslimit != null" >
+        UsLimit = #{record.uslimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.uscollege != null" >
+        UsCollege = #{record.uscollege,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usschool != null" >
+        UsSchool = #{record.usschool,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usstate != null" >
+        UsState = #{record.usstate,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update smuser
+    set UserOID = #{record.useroid,jdbcType=VARCHAR},
+      UsNum = #{record.usnum,jdbcType=VARCHAR},
+      UsPassword = #{record.uspassword,jdbcType=VARCHAR},
+      UsLimit = #{record.uslimit,jdbcType=INTEGER},
+      UsCollege = #{record.uscollege,jdbcType=VARCHAR},
+      UsSchool = #{record.usschool,jdbcType=VARCHAR},
+      UsState = #{record.usstate,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="web.model.SmUser" >
+    update smuser
+    <set >
+      <if test="usnum != null" >
+        UsNum = #{usnum,jdbcType=VARCHAR},
+      </if>
+      <if test="uspassword != null" >
+        UsPassword = #{uspassword,jdbcType=VARCHAR},
+      </if>
+      <if test="uslimit != null" >
+        UsLimit = #{uslimit,jdbcType=INTEGER},
+      </if>
+      <if test="uscollege != null" >
+        UsCollege = #{uscollege,jdbcType=VARCHAR},
+      </if>
+      <if test="usschool != null" >
+        UsSchool = #{usschool,jdbcType=VARCHAR},
+      </if>
+      <if test="usstate != null" >
+        UsState = #{usstate,jdbcType=INTEGER},
+      </if>
+    </set>
+    where UserOID = #{useroid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="web.model.SmUser" >
+    update smuser
+    set UsNum = #{usnum,jdbcType=VARCHAR},
+      UsPassword = #{uspassword,jdbcType=VARCHAR},
+      UsLimit = #{uslimit,jdbcType=INTEGER},
+      UsCollege = #{uscollege,jdbcType=VARCHAR},
+      UsSchool = #{usschool,jdbcType=VARCHAR},
+      UsState = #{usstate,jdbcType=INTEGER}
+    where UserOID = #{useroid,jdbcType=VARCHAR}
+  </update>
+</mapper>

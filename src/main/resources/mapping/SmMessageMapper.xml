@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.dao.SmMessageMapper" >
+  <resultMap id="BaseResultMap" type="web.model.SmMessage" >
+    <constructor >
+      <idArg column="MessageOID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MeUserID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MeUserName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MeInfo" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MeLevel" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MeNews1" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="MeNews2" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="MeNews3" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="MeNews4" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="MeNews5" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="MeNews6" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="MeNews7" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="MeNews8" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="MeSyllabusID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MeDateTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    MessageOID, MeUserID, MeUserName, MeInfo, MeLevel, MeNews1, MeNews2, MeNews3, MeNews4, 
+    MeNews5, MeNews6, MeNews7, MeNews8, MeSyllabusID, MeDateTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="web.model.SmMessageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from smmessage
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null" >
+      <if test="offset != null" >
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null" >
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from smmessage
+    where MessageOID = #{messageoid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from smmessage
+    where MessageOID = #{messageoid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="web.model.SmMessageExample" >
+    delete from smmessage
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="web.model.SmMessage" >
+    insert into smmessage (MessageOID, MeUserID, MeUserName, 
+      MeInfo, MeLevel, MeNews1, 
+      MeNews2, MeNews3, MeNews4, 
+      MeNews5, MeNews6, MeNews7, 
+      MeNews8, MeSyllabusID, MeDateTime
+      )
+    values (#{messageoid,jdbcType=VARCHAR}, #{meuserid,jdbcType=VARCHAR}, #{meusername,jdbcType=VARCHAR}, 
+      #{meinfo,jdbcType=VARCHAR}, #{melevel,jdbcType=VARCHAR}, #{menews1,jdbcType=INTEGER}, 
+      #{menews2,jdbcType=INTEGER}, #{menews3,jdbcType=INTEGER}, #{menews4,jdbcType=INTEGER}, 
+      #{menews5,jdbcType=INTEGER}, #{menews6,jdbcType=INTEGER}, #{menews7,jdbcType=INTEGER}, 
+      #{menews8,jdbcType=INTEGER}, #{mesyllabusid,jdbcType=VARCHAR}, #{medatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="web.model.SmMessage" >
+    insert into smmessage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="messageoid != null" >
+        MessageOID,
+      </if>
+      <if test="meuserid != null" >
+        MeUserID,
+      </if>
+      <if test="meusername != null" >
+        MeUserName,
+      </if>
+      <if test="meinfo != null" >
+        MeInfo,
+      </if>
+      <if test="melevel != null" >
+        MeLevel,
+      </if>
+      <if test="menews1 != null" >
+        MeNews1,
+      </if>
+      <if test="menews2 != null" >
+        MeNews2,
+      </if>
+      <if test="menews3 != null" >
+        MeNews3,
+      </if>
+      <if test="menews4 != null" >
+        MeNews4,
+      </if>
+      <if test="menews5 != null" >
+        MeNews5,
+      </if>
+      <if test="menews6 != null" >
+        MeNews6,
+      </if>
+      <if test="menews7 != null" >
+        MeNews7,
+      </if>
+      <if test="menews8 != null" >
+        MeNews8,
+      </if>
+      <if test="mesyllabusid != null" >
+        MeSyllabusID,
+      </if>
+      <if test="medatetime != null" >
+        MeDateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="messageoid != null" >
+        #{messageoid,jdbcType=VARCHAR},
+      </if>
+      <if test="meuserid != null" >
+        #{meuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="meusername != null" >
+        #{meusername,jdbcType=VARCHAR},
+      </if>
+      <if test="meinfo != null" >
+        #{meinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="melevel != null" >
+        #{melevel,jdbcType=VARCHAR},
+      </if>
+      <if test="menews1 != null" >
+        #{menews1,jdbcType=INTEGER},
+      </if>
+      <if test="menews2 != null" >
+        #{menews2,jdbcType=INTEGER},
+      </if>
+      <if test="menews3 != null" >
+        #{menews3,jdbcType=INTEGER},
+      </if>
+      <if test="menews4 != null" >
+        #{menews4,jdbcType=INTEGER},
+      </if>
+      <if test="menews5 != null" >
+        #{menews5,jdbcType=INTEGER},
+      </if>
+      <if test="menews6 != null" >
+        #{menews6,jdbcType=INTEGER},
+      </if>
+      <if test="menews7 != null" >
+        #{menews7,jdbcType=INTEGER},
+      </if>
+      <if test="menews8 != null" >
+        #{menews8,jdbcType=INTEGER},
+      </if>
+      <if test="mesyllabusid != null" >
+        #{mesyllabusid,jdbcType=VARCHAR},
+      </if>
+      <if test="medatetime != null" >
+        #{medatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="web.model.SmMessageExample" resultType="java.lang.Integer" >
+    select count(*) from smmessage
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update smmessage
+    <set >
+      <if test="record.messageoid != null" >
+        MessageOID = #{record.messageoid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.meuserid != null" >
+        MeUserID = #{record.meuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.meusername != null" >
+        MeUserName = #{record.meusername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.meinfo != null" >
+        MeInfo = #{record.meinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.melevel != null" >
+        MeLevel = #{record.melevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menews1 != null" >
+        MeNews1 = #{record.menews1,jdbcType=INTEGER},
+      </if>
+      <if test="record.menews2 != null" >
+        MeNews2 = #{record.menews2,jdbcType=INTEGER},
+      </if>
+      <if test="record.menews3 != null" >
+        MeNews3 = #{record.menews3,jdbcType=INTEGER},
+      </if>
+      <if test="record.menews4 != null" >
+        MeNews4 = #{record.menews4,jdbcType=INTEGER},
+      </if>
+      <if test="record.menews5 != null" >
+        MeNews5 = #{record.menews5,jdbcType=INTEGER},
+      </if>
+      <if test="record.menews6 != null" >
+        MeNews6 = #{record.menews6,jdbcType=INTEGER},
+      </if>
+      <if test="record.menews7 != null" >
+        MeNews7 = #{record.menews7,jdbcType=INTEGER},
+      </if>
+      <if test="record.menews8 != null" >
+        MeNews8 = #{record.menews8,jdbcType=INTEGER},
+      </if>
+      <if test="record.mesyllabusid != null" >
+        MeSyllabusID = #{record.mesyllabusid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.medatetime != null" >
+        MeDateTime = #{record.medatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update smmessage
+    set MessageOID = #{record.messageoid,jdbcType=VARCHAR},
+      MeUserID = #{record.meuserid,jdbcType=VARCHAR},
+      MeUserName = #{record.meusername,jdbcType=VARCHAR},
+      MeInfo = #{record.meinfo,jdbcType=VARCHAR},
+      MeLevel = #{record.melevel,jdbcType=VARCHAR},
+      MeNews1 = #{record.menews1,jdbcType=INTEGER},
+      MeNews2 = #{record.menews2,jdbcType=INTEGER},
+      MeNews3 = #{record.menews3,jdbcType=INTEGER},
+      MeNews4 = #{record.menews4,jdbcType=INTEGER},
+      MeNews5 = #{record.menews5,jdbcType=INTEGER},
+      MeNews6 = #{record.menews6,jdbcType=INTEGER},
+      MeNews7 = #{record.menews7,jdbcType=INTEGER},
+      MeNews8 = #{record.menews8,jdbcType=INTEGER},
+      MeSyllabusID = #{record.mesyllabusid,jdbcType=VARCHAR},
+      MeDateTime = #{record.medatetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="web.model.SmMessage" >
+    update smmessage
+    <set >
+      <if test="meuserid != null" >
+        MeUserID = #{meuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="meusername != null" >
+        MeUserName = #{meusername,jdbcType=VARCHAR},
+      </if>
+      <if test="meinfo != null" >
+        MeInfo = #{meinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="melevel != null" >
+        MeLevel = #{melevel,jdbcType=VARCHAR},
+      </if>
+      <if test="menews1 != null" >
+        MeNews1 = #{menews1,jdbcType=INTEGER},
+      </if>
+      <if test="menews2 != null" >
+        MeNews2 = #{menews2,jdbcType=INTEGER},
+      </if>
+      <if test="menews3 != null" >
+        MeNews3 = #{menews3,jdbcType=INTEGER},
+      </if>
+      <if test="menews4 != null" >
+        MeNews4 = #{menews4,jdbcType=INTEGER},
+      </if>
+      <if test="menews5 != null" >
+        MeNews5 = #{menews5,jdbcType=INTEGER},
+      </if>
+      <if test="menews6 != null" >
+        MeNews6 = #{menews6,jdbcType=INTEGER},
+      </if>
+      <if test="menews7 != null" >
+        MeNews7 = #{menews7,jdbcType=INTEGER},
+      </if>
+      <if test="menews8 != null" >
+        MeNews8 = #{menews8,jdbcType=INTEGER},
+      </if>
+      <if test="mesyllabusid != null" >
+        MeSyllabusID = #{mesyllabusid,jdbcType=VARCHAR},
+      </if>
+      <if test="medatetime != null" >
+        MeDateTime = #{medatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where MessageOID = #{messageoid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="web.model.SmMessage" >
+    update smmessage
+    set MeUserID = #{meuserid,jdbcType=VARCHAR},
+      MeUserName = #{meusername,jdbcType=VARCHAR},
+      MeInfo = #{meinfo,jdbcType=VARCHAR},
+      MeLevel = #{melevel,jdbcType=VARCHAR},
+      MeNews1 = #{menews1,jdbcType=INTEGER},
+      MeNews2 = #{menews2,jdbcType=INTEGER},
+      MeNews3 = #{menews3,jdbcType=INTEGER},
+      MeNews4 = #{menews4,jdbcType=INTEGER},
+      MeNews5 = #{menews5,jdbcType=INTEGER},
+      MeNews6 = #{menews6,jdbcType=INTEGER},
+      MeNews7 = #{menews7,jdbcType=INTEGER},
+      MeNews8 = #{menews8,jdbcType=INTEGER},
+      MeSyllabusID = #{mesyllabusid,jdbcType=VARCHAR},
+      MeDateTime = #{medatetime,jdbcType=TIMESTAMP}
+    where MessageOID = #{messageoid,jdbcType=VARCHAR}
+  </update>
+</mapper>
