@@ -12,6 +12,7 @@
 
     <!-- 自动扫描 -->
     <context:component-scan base-package="web.service"/>
+    <context:component-scan base-package="web.model"/>
 
     <!-- 第一种方式：加载一个properties文件 -->
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

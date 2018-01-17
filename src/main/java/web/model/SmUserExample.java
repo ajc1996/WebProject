@@ -1,8 +1,10 @@
 package web.model;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
+@Resource
 public class SmUserExample {
     protected String orderByClause;
 
