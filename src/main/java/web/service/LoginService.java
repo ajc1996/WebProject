@@ -4,6 +4,6 @@ import web.model.SmUser;
 
 public interface LoginService {
 
-    void CheckLogin(SmUser smUser);
+    Boolean CheckLogin(SmUser smUser);
 
 }
