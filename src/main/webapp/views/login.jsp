@@ -26,7 +26,7 @@
                 <h1 class="logo-name">校</h1>
             </div>
             <h3>欢迎使用 信息员管理平台</h3>
-            <form class="m-t" role="form" action="checkLogin">
+            <form class="m-t" role="form" id="loginform" action="checkLogin">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="用户名" required="required" name="usnum">
                 </div>
@@ -39,7 +39,19 @@
             </form>
         </div>
     </div>
-<script src="js/jquery.min.js?v=2.1.4"></script>
-<script src="js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="js/jquery/jquery.form.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#loginform").ajaxForm(function(data){
+                if(-1 < data.indexOf("success")){
+                    window.location.href = "toindex";
+                }else{
+                    alert("密码错误！");
+                }
+            });
+        });
+    </script>
 </body>
 </html>

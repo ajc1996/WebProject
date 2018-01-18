@@ -1,6 +1,7 @@
 package web.service.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import web.dao.SmUserMapper;
 import web.model.SmUser;
 import web.model.SmUserExample;
@@ -24,9 +25,10 @@ public class LoginServiceImpl implements LoginService {
         smUserExample.clear();
         smUserExample.createCriteria().andUsnumEqualTo(smUser.getUsnum());
         List<SmUser> smUserList = smUserMapper.selectByExample(smUserExample);
-        if(smUserList.get(0).getUspassword().equals(smUser.getUspassword())){
-            Result = true;
-        }
+        if(smUserList.size()>0)
+            if(smUserList.get(0).getUspassword().equals(smUser.getUspassword())){
+                Result = true;
+            }
         return Result;
     }
 }
