@@ -47,6 +47,19 @@
       <scope>test</scope>
     </dependency>
 
+    <!--poi-->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>3.14</version>
+    </dependency>
+    <!--ooxml -->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>3.14</version>
+    </dependency>
+
     <!-- 添加spring核心依赖 -->
     <dependency>
       <groupId>org.springframework</groupId>

@@ -12,7 +12,8 @@
 
     <title>管理二级管理员</title>
 
-    <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
     <link href="css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
     <link href="css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
     <link href="css/animate.min.css" rel="stylesheet">
@@ -53,6 +54,10 @@
                             </button>
                             <button type="button" class="btn btn-outline btn-default">
                                 <i class="glyphicon glyphicon-trash" aria-hidden="true" id="delete">删除</i>
+                            </button>
+                            <button type="button" class="btn btn-outline btn-default">
+                                <input id="lefile" type="file" style="display:none">
+                                <i class="glyphicon glyphicon-upload" aria-hidden="true" id="upload" onclick="$('input[id=lefile]').click();">导入</i>
                             </button>
                         </div>
                         <table id="exampleTableEvents" data-height="400" data-mobile-responsive="true">
@@ -182,9 +187,7 @@
 
     $(function () {
         $("#form1").ajaxForm(function (data) {
-//            alert("2");
             if(-1 < data.indexOf("success")){
-//                alert("1");
                 swal({
                     title:"太帅了",
                     text:"小手一抖就打开了一个框",
@@ -298,7 +301,7 @@
         });
         var deleteModel ={
             names: names
-        }
+        };
         alert(names[2]);
         //   var param={"names":names};
         $.ajax({
@@ -333,5 +336,6 @@
         };
         return oInit;
     };
+
 </script>
 </html>
