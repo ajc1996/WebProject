@@ -1,7 +1,6 @@
 package test;
 
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import web.dao.SmUserMapper;
 import web.model.SmUser;
 import web.util.Newuuid;

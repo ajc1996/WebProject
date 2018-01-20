@@ -19,7 +19,10 @@
     <link href="css/animate.min.css" rel="stylesheet">
     <link href="css/style.min862f.css?v=4.1.0" rel="stylesheet">
     <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css" rel="stylesheet">
+    <%--<link href="https://cdn.bootcss.com/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css" rel="stylesheet">--%>
+    <link href="css/newcss/bootstrapValidator.min.css" rel="stylesheet">
+    <link href="css/newcss/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="css/newcss/fileinput-rtl.css" rel="stylesheet" />
 
 </head>
 <body class="gray-bg">
@@ -55,9 +58,8 @@
                             <button type="button" class="btn btn-outline btn-default">
                                 <i class="glyphicon glyphicon-trash" aria-hidden="true" id="delete">删除</i>
                             </button>
-                            <button type="button" class="btn btn-outline btn-default">
-                                <input id="lefile" type="file" style="display:none">
-                                <i class="glyphicon glyphicon-upload" aria-hidden="true" id="upload" onclick="$('input[id=lefile]').click();">导入</i>
+                            <button type="button" class="btn btn-outline btn-default" id="upload" data-toggle="modal" data-target="#inputmodal">
+                                <i class="glyphicon glyphicon-upload" aria-hidden="true">导入</i>
                             </button>
                         </div>
                         <table id="exampleTableEvents" data-height="400" data-mobile-responsive="true">
@@ -105,17 +107,51 @@
     </div>
     <%--modal 添加结束--%>
 
+    <%-- 上传文件modal开始 --%>
+    <div class="modal inmodal" id="inputmodal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" style="width: 1232px;">
+            <div class="modal-content">
+                <form id="inputform" action="/useradd" method="post">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h3 class="modal-title">导入Excel文件</h3>
+                        <small class="font-bold" />
+                    </div>
+                    <div class="modal-body">
+                        <div class="container kv-main" >
+                            <h4>Bootstrap 多文件上传实例</h4>
+                            <form enctype="multipart/form-data">
+                                <label>多文件预览上传实例</label>
+                                <input id="file-select" name="file" type="file" multiple class="file-loading" />
+                            </form>
+                            <hr>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal" id="btnclosein">关闭</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <%-- 上传文件modal结束 --%>
+
     <script src="js/jquery.min.js?v=2.1.4"></script>
     <script src="js/bootstrap.min.js?v=3.3.6"></script>
     <script src="js/content.min.js?v=1.0.0"></script>
     <script src="js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
     <script src="js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/language/zh_CN.js"></script>
+    <script src="js/jquery/bootstrapValidator.min.js"></script>
+    <script src="js/jquery/zh_CN.js"></script>
+    <%--<script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>--%>
+    <%--<script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/language/zh_CN.js"></script>--%>
     <script src="js/plugins/sweetalert/sweetalert.min.js"></script>
     <%--<script src="https://cdn.bootcss.com/jquery.form/4.2.1/jquery.form.js"></script>--%>
     <script src="js/jquery/jquery.form.js"></script>
+    <script src="js/jquery/fileinput.js" type="text/javascript"></script>
+    <script src="js/jquery/zh.js" type="text/javascript"></script>
 </body>
 <script type="text/javascript">
     $(function () {
@@ -336,6 +372,19 @@
         };
         return oInit;
     };
+
+    //导入文件
+    $('#file-select').fileinput({
+        language: 'zh',
+        uploadUrl: 'img1',
+        //allowedPreviewTypes: ['image'],
+        allowedFileExtensions : ['xlsx','xls']
+    });
+    $('#file-select').on('fileuploaded', function(event, data, previewId, index) {
+        var response = data.response;
+        $.each(response,function(id,path){//上传完毕，将文件名返回
+        });
+    });
 
 </script>
 </html>
